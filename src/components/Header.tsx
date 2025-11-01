@@ -1,17 +1,24 @@
 import { Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import MobileMenu from "./MobileMenu";
 import logo from "@/assets/logo.png";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b">
+    <header className="sticky top-0 z-50 bg-background/98 backdrop-blur-md border-b shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          <div className="flex items-center gap-3">
-            <img src={logo} alt="Edelweiss" className="h-12 w-auto" />
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <div className="flex items-center gap-2 md:gap-3">
+            <img 
+              src={logo} 
+              alt="Edelweiss" 
+              className="h-10 md:h-12 w-auto" 
+              loading="eager"
+              fetchPriority="high"
+            />
             <div>
-              <h1 className="text-xl font-bold text-foreground">EDELWEISS</h1>
-              <p className="text-xs text-muted-foreground">частная гимназия</p>
+              <h1 className="text-base md:text-xl font-bold text-primary">EDELWEISS</h1>
+              <p className="text-[10px] md:text-xs text-muted-foreground">частная гимназия</p>
             </div>
           </div>
           
@@ -30,15 +37,16 @@ const Header = () => {
             </a>
           </nav>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 md:gap-3">
             <a href="tel:+79033899090" className="hidden lg:flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors">
               <Phone className="h-4 w-4" />
               +7 903 389-90-90
             </a>
-            <Button size="sm" className="hidden sm:flex">
+            <Button size="sm" className="hidden sm:flex shadow-md">
               <Mail className="h-4 w-4 mr-2" />
               Записаться
             </Button>
+            <MobileMenu />
           </div>
         </div>
       </div>
