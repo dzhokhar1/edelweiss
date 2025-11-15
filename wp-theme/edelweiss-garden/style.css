@@ -1,0 +1,21 @@
+/*
+Theme Name: Edelweiss Garden
+Theme URI: https://edelweiss-garden.ru
+Author: Edelweiss Garden Team
+Author URI: https://edelweiss-garden.ru
+Description: Современная тема для детского сада Эдельвейс с использованием Tailwind CSS
+Version: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: edelweiss-garden
+Tags: education, kindergarten, modern, responsive, tailwind
+*/
+
+/* 
+ * Основные стили подключены через Tailwind CSS
+ * Дополнительные кастомные стили в assets/css/custom.css
+ */
+
