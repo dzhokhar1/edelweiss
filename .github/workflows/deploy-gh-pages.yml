@@ -30,6 +30,8 @@ jobs:
       - name: Generate static HTML
         working-directory: ./wp-theme/local
         run: |
+          set -e
+          
           # Создаем директорию для статики
           mkdir -p ../gh-pages
           
@@ -49,7 +51,7 @@ jobs:
           SERVER_PID=$!
           
           # Ждем запуска сервера
-          sleep 4
+          sleep 5
           
           # Проверяем что сервер запустился
           if ! curl -s "http://localhost:8765/" > /dev/null; then
@@ -59,42 +61,49 @@ jobs:
           fi
           
           echo "3. Generating HTML pages..."
-          # Генерируем HTML для каждой страницы с исправлением путей
-          PAGES=(
-            "index:/"
-            "about:/about"
-            "groups:/groups"
-            "programs:/programs"
-            "pricing:/pricing"
-            "adaptation:/adaptation"
-            "enrollment:/enrollment"
-            "contacts:/contacts"
-          )
+          # Используем простой синтаксис вместо массива
+          PAGES="index:/ about:/about groups:/groups programs:/programs pricing:/pricing adaptation:/adaptation enrollment:/enrollment contacts:/contacts"
           
-          for page_info in "${PAGES[@]}"; do
+          for page_info in $PAGES; do
             IFS=':' read -r page_name page_url <<< "$page_info"
             echo "   Generating: $page_name.html"
             
-            # Загружаем страницу и исправляем пути
+            # Загружаем страницу и исправляем пути (упрощенный синтаксис)
             curl -s "http://localhost:8765$page_url" | \
-              sed -E 's|href="/|href="./|g' | \
-              sed -E 's|src="/|src="./|g' | \
-              sed -E 's|href="\./(about|groups|programs|pricing|adaptation|enrollment|contacts)["\']|href="./\1.html|g' | \
-              sed -E 's|href="\./(about|groups|programs|pricing|adaptation|enrollment|contacts)/["\']|href="./\1.html|g' | \
-              sed -E 's|href="\./["\']|href="./index.html|g' | \
-              sed -E 's|href="/(about|groups|programs|pricing|adaptation|enrollment|contacts)["\']|href="./\1.html|g' | \
-              sed -E 's|href="/(about|groups|programs|pricing|adaptation|enrollment|contacts)/["\']|href="./\1.html|g' | \
-              sed -E 's|href="/["\']|href="./index.html|g' > "../gh-pages/$page_name.html"
+              sed 's|href="/assets/|href="./assets/|g' | \
+              sed 's|src="/assets/|src="./assets/|g' | \
+              sed 's|href="/template-parts/|href="./template-parts/|g' | \
+              sed 's|href="/|href="./|g' | \
+              sed 's|src="/|src="./|g' | \
+              sed 's|href="./about"|href="./about.html|g' | \
+              sed 's|href="./groups"|href="./groups.html|g' | \
+              sed 's|href="./programs"|href="./programs.html|g' | \
+              sed 's|href="./pricing"|href="./pricing.html|g' | \
+              sed 's|href="./adaptation"|href="./adaptation.html|g' | \
+              sed 's|href="./enrollment"|href="./enrollment.html|g' | \
+              sed 's|href="./contacts"|href="./contacts.html|g' | \
+              sed 's|href="./"|href="./index.html|g' | \
+              sed 's|href="/about"|href="./about.html|g' | \
+              sed 's|href="/groups"|href="./groups.html|g' | \
+              sed 's|href="/programs"|href="./programs.html|g' | \
+              sed 's|href="/pricing"|href="./pricing.html|g' | \
+              sed 's|href="/adaptation"|href="./adaptation.html|g' | \
+              sed 's|href="/enrollment"|href="./enrollment.html|g' | \
+              sed 's|href="/contacts"|href="./contacts.html|g' | \
+              sed 's|href="/"|href="./index.html|g' > "../gh-pages/$page_name.html"
             
             # Проверяем что файл создан
             if [ ! -s "../gh-pages/$page_name.html" ]; then
               echo "   Warning: $page_name.html is empty"
+            else
+              echo "   ✅ $page_name.html created"
             fi
           done
           
           echo "4. Stopping PHP server..."
           # Останавливаем сервер
           kill $SERVER_PID 2>/dev/null || true
+          sleep 1
           
           echo "5. Creating .nojekyll..."
           # Создаем .nojekyll чтобы GitHub Pages не обрабатывал файлы через Jekyll
@@ -102,7 +111,7 @@ jobs:
           
           echo ""
           echo "✅ Static site generated successfully!"
-          echo "   HTML pages: $(find ../gh-pages -maxdepth 1 -name "*.html" | wc -l)"
+          echo "   HTML pages: $(find ../gh-pages -maxdepth 1 -name "*.html" 2>/dev/null | wc -l)"
           echo "   Images: $(find ../gh-pages/assets/images -type f 2>/dev/null | wc -l)"
           echo "   CSS files: $(find ../gh-pages/assets/css -type f 2>/dev/null | wc -l)"
           echo "   JS files: $(find ../gh-pages/assets/js -type f 2>/dev/null | wc -l)"
