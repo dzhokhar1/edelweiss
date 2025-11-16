@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright MCP screenshots
+.playwright-mcp/
+.playwright-mcp/**/*.png
+.playwright-mcp/**/*.jpg
+.playwright-mcp/**/*.jpeg
+.playwright-mcp/**/*.gif

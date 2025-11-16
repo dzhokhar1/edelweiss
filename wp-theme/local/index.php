@@ -337,6 +337,84 @@ get_header();
         </div>
     </section>
     
+    <!-- Секция "Изучение языков" -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-orange-50 via-white to-blue-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">
+                        Изучение языков
+                    </h2>
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl mx-auto">
+                        В нашем детском саду дети изучают азы трех языков через игры, общение и творческие занятия
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 mb-12">
+                    <!-- Английский язык -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow border-2 border-orange-100 hover:border-orange-300 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-gray-900">Английский</h3>
+                        <p class="text-gray-700 text-center mb-6 leading-relaxed flex-grow">
+                            Основы английского языка через игры, песни и общение. Развиваем интерес к изучению иностранного языка с раннего возраста, формируем базовые навыки общения.
+                        </p>
+                        <div class="w-full h-40 rounded-xl overflow-hidden shadow-md border-2 border-orange-100 relative bg-white flex-shrink-0">
+                            <!-- Флаг Великобритании -->
+                            <svg class="w-full h-full" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="60" height="30" fill="#012169"/>
+                                <path d="M0 0l60 30M60 0L0 30" stroke="#fff" stroke-width="1.5"/>
+                                <path d="M0 0l60 30M60 0L0 30" stroke="#C8102E" stroke-width="1"/>
+                                <path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="3"/>
+                                <path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Арабский язык -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow border-2 border-blue-100 hover:border-blue-300 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-gray-900">Арабский</h3>
+                        <p class="text-gray-700 text-center mb-6 leading-relaxed flex-grow">
+                            Знакомство с арабским языком и культурой. Изучение основ языка в игровой форме, развитие интереса к многообразию культур и традиций.
+                        </p>
+                        <div class="w-full h-40 rounded-xl overflow-hidden shadow-md border-2 border-blue-100 relative bg-white flex-shrink-0">
+                            <!-- Флаг Панарабизма (зеленый, белый, черный, красный) -->
+                            <svg class="w-full h-full" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0" width="60" height="7.5" fill="#000"/>
+                                <rect y="7.5" width="60" height="7.5" fill="#fff"/>
+                                <rect y="15" width="60" height="7.5" fill="#006C35"/>
+                                <rect y="22.5" width="60" height="7.5" fill="#CE1126"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Чеченский язык -->
+                    <div class="bg-white rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-shadow border-2 border-green-100 hover:border-green-300 flex flex-col">
+                        <h3 class="text-2xl font-bold mb-4 text-center text-gray-900">Чеченский</h3>
+                        <p class="text-gray-700 text-center mb-6 leading-relaxed flex-grow">
+                            Изучение родного языка в рамках регионального компонента программы. Сохранение и развитие культурных традиций, формирование уважения к родной культуре.
+                        </p>
+                        <div class="w-full h-40 rounded-xl overflow-hidden shadow-md border-2 border-green-100 relative bg-white flex-shrink-0">
+                            <!-- Флаг России -->
+                            <svg class="w-full h-full" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
+                                <rect y="0" width="60" height="10" fill="#fff"/>
+                                <rect y="10" width="60" height="10" fill="#0039A6"/>
+                                <rect y="20" width="60" height="10" fill="#D52B1E"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <a href="/programs/#languages" class="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-500 text-white rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all hover:scale-105">
+                        Узнать больше о программах
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <!-- Секция "Возрастные группы" -->
     <section class="py-16 md:py-24 bg-gray-50">
         <div class="container mx-auto px-4">
