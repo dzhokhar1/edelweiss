@@ -67,44 +67,46 @@ for page_info in $PAGES; do
     
     # Загружаем страницу и исправляем пути
     curl -s "http://localhost:$PHP_SERVER_PORT$page_url" | \
+        # Сначала заменяем статические ресурсы
         sed 's|href="/assets/|href="./assets/|g' | \
         sed 's|src="/assets/|src="./assets/|g' | \
         sed 's|href="/template-parts/|href="./template-parts/|g' | \
-        # Заменяем ссылки с завершающим слешем в off-canvas меню
-        sed 's|href="/about/"|href="./about.html|g' | \
-        sed 's|href="/groups/"|href="./groups.html|g' | \
-        sed 's|href="/programs/"|href="./programs.html|g' | \
-        sed 's|href="/pricing/"|href="./pricing.html|g' | \
-        sed 's|href="/adaptation/"|href="./adaptation.html|g' | \
-        sed 's|href="/enrollment/"|href="./enrollment.html|g' | \
-        sed 's|href="/contacts/"|href="./contacts.html|g' | \
-        # Заменяем ссылки без завершающего слеша
-        sed 's|href="/about"|href="./about.html|g' | \
-        sed 's|href="/groups"|href="./groups.html|g' | \
-        sed 's|href="/programs"|href="./programs.html|g' | \
-        sed 's|href="/pricing"|href="./pricing.html|g' | \
-        sed 's|href="/adaptation"|href="./adaptation.html|g' | \
-        sed 's|href="/enrollment"|href="./enrollment.html|g' | \
-        sed 's|href="/contacts"|href="./contacts.html|g' | \
-        # Заменяем относительные ссылки
-        sed 's|href="./about/"|href="./about.html|g' | \
-        sed 's|href="./groups/"|href="./groups.html|g' | \
-        sed 's|href="./programs/"|href="./programs.html|g' | \
-        sed 's|href="./pricing/"|href="./pricing.html|g' | \
-        sed 's|href="./adaptation/"|href="./adaptation.html|g' | \
-        sed 's|href="./enrollment/"|href="./enrollment.html|g' | \
-        sed 's|href="./contacts/"|href="./contacts.html|g' | \
-        sed 's|href="./about"|href="./about.html|g' | \
-        sed 's|href="./groups"|href="./groups.html|g' | \
-        sed 's|href="./programs"|href="./programs.html|g' | \
-        sed 's|href="./pricing"|href="./pricing.html|g' | \
-        sed 's|href="./adaptation"|href="./adaptation.html|g' | \
-        sed 's|href="./enrollment"|href="./enrollment.html|g' | \
-        sed 's|href="./contacts"|href="./contacts.html|g' | \
-        # Заменяем главную страницу
-        sed 's|href="/"|href="./index.html|g' | \
-        sed 's|href="./"|href="./index.html|g' | \
-        # Общие замены путей для остальных ресурсов
+        # Заменяем страницы с завершающим слешем - используем " чтобы захватить до кавычки
+        sed 's|href="/about/"|href="./about.html"|g' | \
+        sed 's|href="/groups/"|href="./groups.html"|g' | \
+        sed 's|href="/programs/"|href="./programs.html"|g' | \
+        sed 's|href="/pricing/"|href="./pricing.html"|g' | \
+        sed 's|href="/adaptation/"|href="./adaptation.html"|g' | \
+        sed 's|href="/enrollment/"|href="./enrollment.html"|g' | \
+        sed 's|href="/contacts/"|href="./contacts.html"|g' | \
+        # Заменяем относительные ссылки с завершающим слешем
+        sed 's|href="./about/"|href="./about.html"|g' | \
+        sed 's|href="./groups/"|href="./groups.html"|g' | \
+        sed 's|href="./programs/"|href="./programs.html"|g' | \
+        sed 's|href="./pricing/"|href="./pricing.html"|g' | \
+        sed 's|href="./adaptation/"|href="./adaptation.html"|g' | \
+        sed 's|href="./enrollment/"|href="./enrollment.html"|g' | \
+        sed 's|href="./contacts/"|href="./contacts.html"|g' | \
+        # Заменяем страницы без завершающего слеша (но с кавычкой после)
+        sed 's|href="/about"|href="./about.html"|g' | \
+        sed 's|href="/groups"|href="./groups.html"|g' | \
+        sed 's|href="/programs"|href="./programs.html"|g' | \
+        sed 's|href="/pricing"|href="./pricing.html"|g' | \
+        sed 's|href="/adaptation"|href="./adaptation.html"|g' | \
+        sed 's|href="/enrollment"|href="./enrollment.html"|g' | \
+        sed 's|href="/contacts"|href="./contacts.html"|g' | \
+        # Заменяем относительные ссылки без завершающего слеша
+        sed 's|href="./about"|href="./about.html"|g' | \
+        sed 's|href="./groups"|href="./groups.html"|g' | \
+        sed 's|href="./programs"|href="./programs.html"|g' | \
+        sed 's|href="./pricing"|href="./pricing.html"|g' | \
+        sed 's|href="./adaptation"|href="./adaptation.html"|g' | \
+        sed 's|href="./enrollment"|href="./enrollment.html"|g' | \
+        sed 's|href="./contacts"|href="./contacts.html"|g' | \
+        # Заменяем главную страницу (только если это отдельная ссылка)
+        sed 's|href="/"|href="./index.html"|g' | \
+        sed 's|href="./"|href="./index.html"|g' | \
+        # Общие замены путей для остальных ресурсов (делаем в конце, чтобы не перезаписать предыдущие)
         sed 's|href="/|href="./|g' | \
         sed 's|src="/|src="./|g' > "$OUTPUT_DIR/$page_name.html"
     
