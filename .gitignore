@@ -29,3 +29,6 @@ dist-ssr
 .playwright-mcp/**/*.jpg
 .playwright-mcp/**/*.jpeg
 .playwright-mcp/**/*.gif
+
+# Nested git repositories
+**/.git/
