@@ -33,36 +33,79 @@ jobs:
           # Создаем директорию для статики
           mkdir -p ../gh-pages
           
-          # Копируем статические файлы
+          echo "1. Copying static files (CSS, JS, images)..."
+          # Копируем все статические файлы
           cp -r assets ../gh-pages/
+          cp -r template-parts ../gh-pages/ 2>/dev/null || true
           
+          # Копируем favicon в корень
+          if [ -f "assets/images/favicon.png" ]; then
+            cp "assets/images/favicon.png" ../gh-pages/
+          fi
+          
+          echo "2. Starting PHP server..."
           # Запускаем PHP сервер в фоне
-          php -S localhost:8000 router.php > /dev/null 2>&1 &
+          php -S localhost:8765 router.php > /tmp/php-server.log 2>&1 &
           SERVER_PID=$!
           
           # Ждем запуска сервера
-          sleep 3
+          sleep 4
           
-          # Генерируем HTML для каждой страницы
-          PAGES=("index" "about" "groups" "programs" "pricing" "adaptation" "enrollment" "contacts")
+          # Проверяем что сервер запустился
+          if ! curl -s "http://localhost:8765/" > /dev/null; then
+            echo "Error: PHP server failed to start"
+            cat /tmp/php-server.log
+            exit 1
+          fi
           
-          for page in "${PAGES[@]}"; do
-            echo "Generating: $page"
-            if [ "$page" = "index" ]; then
-              curl -s "http://localhost:8000/" > "../gh-pages/index.html"
-            else
-              curl -s "http://localhost:8000/$page" > "../gh-pages/$page.html"
+          echo "3. Generating HTML pages..."
+          # Генерируем HTML для каждой страницы с исправлением путей
+          PAGES=(
+            "index:/"
+            "about:/about"
+            "groups:/groups"
+            "programs:/programs"
+            "pricing:/pricing"
+            "adaptation:/adaptation"
+            "enrollment:/enrollment"
+            "contacts:/contacts"
+          )
+          
+          for page_info in "${PAGES[@]}"; do
+            IFS=':' read -r page_name page_url <<< "$page_info"
+            echo "   Generating: $page_name.html"
+            
+            # Загружаем страницу и исправляем пути
+            curl -s "http://localhost:8765$page_url" | \
+              sed -E 's|href="/|href="./|g' | \
+              sed -E 's|src="/|src="./|g' | \
+              sed -E 's|href="\./(about|groups|programs|pricing|adaptation|enrollment|contacts)["\']|href="./\1.html|g' | \
+              sed -E 's|href="\./(about|groups|programs|pricing|adaptation|enrollment|contacts)/["\']|href="./\1.html|g' | \
+              sed -E 's|href="\./["\']|href="./index.html|g' | \
+              sed -E 's|href="/(about|groups|programs|pricing|adaptation|enrollment|contacts)["\']|href="./\1.html|g' | \
+              sed -E 's|href="/(about|groups|programs|pricing|adaptation|enrollment|contacts)/["\']|href="./\1.html|g' | \
+              sed -E 's|href="/["\']|href="./index.html|g' > "../gh-pages/$page_name.html"
+            
+            # Проверяем что файл создан
+            if [ ! -s "../gh-pages/$page_name.html" ]; then
+              echo "   Warning: $page_name.html is empty"
             fi
           done
           
-          # Копируем favicon
-          cp assets/images/favicon.png ../gh-pages/ 2>/dev/null || true
-          
+          echo "4. Stopping PHP server..."
           # Останавливаем сервер
           kill $SERVER_PID 2>/dev/null || true
           
+          echo "5. Creating .nojekyll..."
           # Создаем .nojekyll чтобы GitHub Pages не обрабатывал файлы через Jekyll
           touch ../gh-pages/.nojekyll
+          
+          echo ""
+          echo "✅ Static site generated successfully!"
+          echo "   HTML pages: $(find ../gh-pages -maxdepth 1 -name "*.html" | wc -l)"
+          echo "   Images: $(find ../gh-pages/assets/images -type f 2>/dev/null | wc -l)"
+          echo "   CSS files: $(find ../gh-pages/assets/css -type f 2>/dev/null | wc -l)"
+          echo "   JS files: $(find ../gh-pages/assets/js -type f 2>/dev/null | wc -l)"
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

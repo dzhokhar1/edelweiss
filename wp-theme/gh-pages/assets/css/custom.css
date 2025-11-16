@@ -1,0 +1,220 @@
+/**
+ * Custom CSS for Edelweiss Garden Theme
+ * Tailwind CSS variables and custom styles
+ */
+
+/* CSS Variables for Design System */
+:root {
+    --background: 0 0% 99%;
+    --foreground: 347 20% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 347 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 347 20% 15%;
+
+    --primary: 347 42% 39%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 28 88% 58%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 38 30% 95%;
+    --muted-foreground: 347 15% 45%;
+
+    --accent: 142 55% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 355 75% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 38 20% 88%;
+    --input: 38 20% 92%;
+    --ring: 347 42% 39%;
+
+    --gold: 38 48% 62%;
+
+    --radius: 1.5rem;
+
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow: 0 2px 8px -2px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.12);
+    --shadow-lg: 0 8px 24px -4px rgb(0 0 0 / 0.15);
+    --shadow-xl: 0 16px 40px -8px rgb(0 0 0 / 0.18);
+}
+
+/* Base Styles */
+* {
+    border-color: hsl(var(--border));
+}
+
+body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Utility Classes */
+.font-display {
+    font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+.text-primary {
+    color: hsl(var(--primary));
+}
+
+.text-secondary {
+    color: hsl(var(--secondary));
+}
+
+.text-accent {
+    color: hsl(var(--accent));
+}
+
+.text-muted-foreground {
+    color: hsl(var(--muted-foreground));
+}
+
+.text-foreground {
+    color: hsl(var(--foreground));
+}
+
+.bg-background {
+    background-color: hsl(var(--background));
+}
+
+.bg-card {
+    background-color: hsl(var(--card));
+}
+
+.bg-primary {
+    background-color: hsl(var(--primary));
+}
+
+.bg-secondary {
+    background-color: hsl(var(--secondary));
+}
+
+.bg-accent {
+    background-color: hsl(var(--accent));
+}
+
+.bg-muted {
+    background-color: hsl(var(--muted));
+}
+
+.text-primary-foreground {
+    color: hsl(var(--primary-foreground));
+}
+
+.text-secondary-foreground {
+    color: hsl(var(--secondary-foreground));
+}
+
+.text-accent-foreground {
+    color: hsl(var(--accent-foreground));
+}
+
+.border-border {
+    border-color: hsl(var(--border));
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Image Optimization */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Mobile Menu Animation */
+#mobile-menu {
+    transition: transform 0.3s ease-in-out;
+}
+
+#mobile-menu.hidden {
+    transform: translateX(100%);
+}
+
+#mobile-menu:not(.hidden) {
+    transform: translateX(0);
+}
+
+/* Backdrop Blur Support */
+@supports (backdrop-filter: blur(12px)) {
+    .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+    }
+    
+    .backdrop-blur-sm {
+        backdrop-filter: blur(4px);
+    }
+}
+
+/* Container */
+.container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
+
+@media (min-width: 1536px) {
+    .container {
+        max-width: 1536px;
+    }
+}
+
+/* Burgundy/Maroon Color for Menu Button */
+.bg-burgundy {
+    background-color: #a00028;
+}
+
+.bg-burgundy:hover {
+    background-color: #8b0020;
+}
+
+/* Print Styles */
+@media print {
+    header,
+    footer,
+    #mobile-menu {
+        display: none;
+    }
+}
+
